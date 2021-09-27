@@ -1,0 +1,23 @@
+server:
+  port: 9002
+
+
+spring:
+  cloud:
+    stream:
+      function:
+        definition: randomProducer;evenProcessor;numberConsumer
+
+      bindings:
+        randomProducer-out-0:
+          destination: numbers
+        evenProcessor-in-0:
+          destination: numbers
+        evenProcessor-out-0:
+          destination: even
+        numberConsumer-in-0:
+          destination: even
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
